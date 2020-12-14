@@ -52,8 +52,8 @@ def play_game(filename: str, game):
     return state.observation_tensor()[:361*2], result
 
 def main(argv):
-    files = os.listdir(GAME_DIR)
-    length = len(files)
+    filenames = os.listdir(GAME_DIR)
+    length = len(filenames)
     game = pyspiel.load_game("go")
     counter = 0
 
@@ -61,12 +61,12 @@ def main(argv):
         os.remove("parsed_games.txt")
 
     with open(f"parsed_games.txt", "a") as f:
-        for f in files:
+        for filename in filenames:
             if counter == NR_OF_GAMES:
                 break
             counter += 1
-            print(f"{counter} of {length}:\t{f}")
-            tensor, result = play_game(f, game)
+            print(f"{counter} of {length}:\t{filename}")
+            tensor, result = play_game(filename, game)
             to_int = [int(x) for x in tensor] + [result]
             printable = " ".join([str(x) for x in to_int]) + "\n"
 
