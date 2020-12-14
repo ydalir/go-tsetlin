@@ -21,6 +21,12 @@ Y_test = Y[z:]
 
 tm = MultiClassTsetlinMachine(number_of_clauses=1000, T=40, s=4)
 
+total_acc = []
+
 for x in range(500):
-    tm.fit(X_train, Y_train, incremental=True, epochs=1)
-    print("Accuracy:", 100*(tm.predict(X_test) == Y_test).mean())
+    tm.fit(X_train, Y_train, incremental=True, epochs=6)
+    accuracy = 100*(tm.predict(X_test) == Y_test).mean()
+    total_acc.append(accuracy)
+    print("Accuracy:", accuracy)
+
+# Insert graphing here
