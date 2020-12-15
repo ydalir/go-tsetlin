@@ -10,9 +10,10 @@ import numpy
 
 import pyspiel
 
-NR_OF_MOVES = 100
+NR_OF_MOVES = 350
 NR_OF_GAMES = 5000
 GAME_DIR = "games/aya_games/"
+OUT_FILE = "350_5k.txt"
 
 def _val(s: str):
     return ord(s)-97
@@ -36,7 +37,6 @@ def _get_action(state, action_str):
 
 def play_game(filename: str, game):
     state = game.new_initial_state()
-    state = game.new_initial_state()
     moves, result = _get_actions(filename)
     counter = 0
     for move in moves:
@@ -57,10 +57,10 @@ def main(argv):
     game = pyspiel.load_game("go")
     counter = 0
 
-    if os.path.isfile("parsed_games.txt"):
-        os.remove("parsed_games.txt")
+    if os.path.isfile(OUT_FILE):
+        os.remove(OUT_FILE)
 
-    with open(f"parsed_games.txt", "a") as f:
+    with open(OUT_FILE, "a") as f:
         for filename in filenames:
             if counter == NR_OF_GAMES:
                 break

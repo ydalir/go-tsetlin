@@ -1,9 +1,12 @@
 import math
+import pickle
+import matplotlib.pyplot as plt
 
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 import numpy as np
 
-data = np.loadtxt("parsed_games.txt")
+data = np.loadtxt("out_all_5k.txt")
+np.random.shuffle(data)
 # Questions
 X = data[:, 0:-1]
 # Answers
@@ -19,14 +22,18 @@ X_test = X[z:]
 Y_test = Y[z:]
 
 
-tm = MultiClassTsetlinMachine(number_of_clauses=1000, T=40, s=4)
+tm = MultiClassTsetlinMachine(number_of_clauses=100, T=20, s=7.0)
 
 total_acc = []
 
-for x in range(500):
-    tm.fit(X_train, Y_train, incremental=True, epochs=6)
+print("Starting training")
+for x in range(100):
+    tm.fit(X_train, Y_train, incremental=True, epochs=1)
     accuracy = 100*(tm.predict(X_test) == Y_test).mean()
+    print("Accuracy test:", accuracy)
     total_acc.append(accuracy)
-    print("Accuracy:", accuracy)
+    accuracy = 100*(tm.predict(X_train) == Y_train).mean()
+    print("Accuracy train:", accuracy)
 
-# Insert graphing here
+plt.plot(total_acc)
+plt.show()
