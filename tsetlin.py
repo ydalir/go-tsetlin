@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 import numpy as np
 
-data = np.loadtxt("out_all_5k.txt")
+data = np.loadtxt("250_5k.txt")
 np.random.shuffle(data)
 # Questions
 X = data[:, 0:-1]
@@ -21,13 +21,23 @@ Y_train = Y[:z]
 X_test = X[z:]
 Y_test = Y[z:]
 
+epochs = 50
+tm = MultiClassTsetlinMachine(number_of_clauses=100, T=30, s=4.0)
 
-tm = MultiClassTsetlinMachine(number_of_clauses=100, T=20, s=7.0)
+info = "; ".join(f"""
+Clauses: {tm.number_of_clauses}
+T: {tm.T}
+s: {tm.s}
+Epochs: {epochs}
+Moves: 250
+Games: {data.shape[0]}
+""".strip().split("\n"))
 
 total_acc = []
 
 print("Starting training")
-for x in range(100):
+for x in range(epochs):
+    print("Epoch: ", x)
     tm.fit(X_train, Y_train, incremental=True, epochs=1)
     accuracy = 100*(tm.predict(X_test) == Y_test).mean()
     print("Accuracy test:", accuracy)
@@ -36,4 +46,5 @@ for x in range(100):
     print("Accuracy train:", accuracy)
 
 plt.plot(total_acc)
+plt.title(info)
 plt.show()
