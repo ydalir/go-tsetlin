@@ -1,7 +1,9 @@
 import math
+import sys
 import matplotlib.pyplot as plt
+from itertools import groupby
 
-from pyTsetlinMachine.tm import MultiClassTsetlinMachine
+from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
 import numpy as np
 
 data = np.loadtxt("250_10k.txt")
@@ -9,6 +11,8 @@ np.random.seed(20)
 np.random.shuffle(data)
 # Questions
 X = data[:, 0:-1]
+entries = X.shape[0]
+X = X.reshape((entries, 19, 38))
 # Answers
 Y = data[:, -1]
 
@@ -21,8 +25,8 @@ Y_train = Y[:z]
 X_test = X[z:]
 Y_test = Y[z:]
 
-epochs = 50
-tm = MultiClassTsetlinMachine(number_of_clauses=1000, T=25, s=6)
+epochs = 20
+tm = MultiClassConvolutionalTsetlinMachine2D(10000, 7500, 8.0, (19, 19), weighted_clauses=True)
 
 info = "; ".join(f"""
 Clauses: {tm.number_of_clauses}

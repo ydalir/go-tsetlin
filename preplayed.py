@@ -10,10 +10,10 @@ import numpy
 
 import pyspiel
 
-NR_OF_MOVES = 350
-NR_OF_GAMES = 5000
+NR_OF_MOVES = 250
+NR_OF_GAMES = 100000
 GAME_DIR = "games/aya_games/"
-OUT_FILE = "350_5k.txt"
+OUT_FILE = "250_20k.txt"
 
 def _val(s: str):
     return ord(s)-97
