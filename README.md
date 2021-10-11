@@ -4,5 +4,5 @@
 Go Tsetlin predictor
 
 
-Download games from [http://www.yss-aya.com/ayaself/ayaself.html](here).
+Download games from [http://www.yss-aya.com/ayaself/ayaself.html](http://www.yss-aya.com/ayaself/ayaself.html).
 Use 19x19 games.
